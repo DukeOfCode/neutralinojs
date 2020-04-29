@@ -28,9 +28,11 @@ let storage = require('./core/storage');
 let init = require('./core/init');
 let debug = require('./core/debug');
 let app = require('./core/app');
+let scripteng = require('./core/scripteng');
 
 module.exports =  {
     app: app,
+    scripteng: scripteng,
     filesystem : filesystem,
     settings : settings,
     os : os,

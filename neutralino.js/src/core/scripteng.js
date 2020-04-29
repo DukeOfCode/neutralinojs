@@ -20,22 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <map>
-#ifndef SCRIPTENG_H
-#define SCRIPTENG_H
+let $ = require('../lib/minAjax.js');
 
-namespace scripteng {
-    string hello(string jso);
+let hello = function (sName, s, e) {
+    $.ajax({
+        url : '/scripteng/hello',
+        type : 'POST',
+        data : {
+            name : sName
+        },
+        done : function(data){
+            s(data);
+        },
+        problem : function (error) {
+            e(error);
+        }
+    });
+};
 
-    string foo(string jso);
+let foo = function (s, e) {
+    $.ajax({
+        url : '/scripteng/foo',
+        type : 'POST',
+        data : {
+        },
+        done : function(data){
+            s(data);
+        },
+        problem : function (error) {
+            e(error);
+        }
+    });
+};
 
-    typedef string (*pfunc)(string);
-
-    map <string, pfunc> funcmap = {
-        {"scripteng.hello", scripteng::hello},
-        {"scripteng.foo", scripteng::foo},
-    };
-
+module.exports = {
+    hello: hello,
+    foo: foo
 }
-
-#endif

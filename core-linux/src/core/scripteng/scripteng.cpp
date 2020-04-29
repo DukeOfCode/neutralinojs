@@ -19,3 +19,36 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+#include "../../../lib/json/json.hpp"
+//#include <sys/types.h>
+//#include <unistd.h>
+
+using namespace std;
+using json = nlohmann::json;
+
+namespace scripteng {
+
+    string hello(string jso) {
+        json input;
+        json output;
+        try {
+            input = json::parse(jso);
+        }
+        catch(exception e){
+            output["error"] = "JSON parse error is occured!";
+            return output.dump();
+        }
+        output["success"] = true;
+        string name = input["name"];
+        output["content"] = "Hello " + name + "!";
+        return output.dump();
+    }
+
+    string foo(string jso) {
+        json output;
+        output["success"] = true;
+        output["content"] = "FOOOooobaaaAAARRRR!!!";
+        return output.dump();
+    }
+
+}
